@@ -13,7 +13,7 @@ let userSchema = new Schema({
     password: String,
     apiKey:{
         type: String,
-        unique: true,
+        // unique: true,
         required: true
     }
 });
