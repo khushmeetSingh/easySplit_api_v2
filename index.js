@@ -115,6 +115,22 @@ app.patch(
 //     })
 // });
 
+app.get(
+  "/get-splitwise-user",
+  passport.authenticate("jwt", { session: false }),
+  async (req, res) => {
+    const response = await axios
+      .get("https://secure.splitwise.com/api/v3.0/get_current_user", {
+        headers: {
+          Authorization: `Bearer ${req.body.apiKey}`,
+        },
+      })
+      .then((res) => res)
+      .then((res) => res.json(response))
+      .catch((err) => res.status(422).json({ error: err }));
+  }
+);
+
 userService
   .connect()
   .then(() => {
