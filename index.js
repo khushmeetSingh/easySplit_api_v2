@@ -121,15 +121,15 @@ app.get(
   passport.authenticate("jwt", { session: false }),
   async (req, res) => {
     console.log(`Bearer ${req.body.apiKey}`);
-    const response = await axios
+    axios
       .get("https://secure.splitwise.com/api/v3.0/get_current_user", {
         headers: {
           Authorization: `Bearer ${req.body.apiKey}`,
         },
       })
-      .then((resp) => res.json(resp))
+      .then((resp) => res.json(resp.data))
       .catch((err) => res.status(452).json({ error: err }));
-      return response;
+      // return response;
   }
 );
 
