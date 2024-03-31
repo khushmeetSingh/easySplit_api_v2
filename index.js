@@ -124,7 +124,7 @@ app.get(
     axios
       .get("https://secure.splitwise.com/api/v3.0/get_current_user", {
         headers: {
-          Authorization: `Bearer ${req.body.apiKey}`,
+          Authorization: `Bearer HTyRVCyNdvNwuxSgv0aW9SeD23WPuAiGIZ4yfdWn`,
           "Access-Control-Allow-Origin": "*",
         },
       })
