@@ -7,7 +7,7 @@ const userService = require("./user-service.js");
 const jwt = require("jsonwebtoken");
 const passport = require("passport");
 const passportJWT = require("passport-jwt");
-const axios = require('axios')
+const axios = require("axios");
 
 const HTTP_PORT = process.env.PORT || 8080;
 
@@ -120,17 +120,35 @@ app.get(
   "/get-splitwise-user",
   passport.authenticate("jwt", { session: false }),
   async (req, res) => {
-    console.log(`Bearer ${JSON.stringify(req.body )}`);
+    console.log(`Bearer ${JSON.stringify(req.body)}`);
     axios
       .get("https://secure.splitwise.com/api/v3.0/get_current_user", {
         headers: {
-          Authorization: `Bearer HTyRVCyNdvNwuxSgv0aW9SeD23WPuAiGIZ4yfdWn`,
+          Authorization: `Bearer ${req.body.apiKey}`,
           "Access-Control-Allow-Origin": "*",
         },
       })
       .then((resp) => res.json(resp.data))
       .catch((err) => res.status(452).json({ error: err }));
-      // return response;
+    // return response;
+  }
+);
+
+app.get(
+  "/get-friends",
+  passport.authenticate("jwt", { session: false }),
+  async (req, res) => {
+    console.log(`Bearer ${JSON.stringify(req.body)}`);
+    axios
+      .get("https://secure.splitwise.com/api/v3.0/get_friends", {
+        headers: {
+          Authorization: `Bearer ${req.body.apiKey}`,
+          "Access-Control-Allow-Origin": "*",
+        },
+      })
+      .then((resp) => res.json(resp.data))
+      .catch((err) => res.status(452).json({ error: err }));
+    // return response;
   }
 );
 
