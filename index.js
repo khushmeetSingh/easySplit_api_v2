@@ -138,11 +138,11 @@ app.get(
   "/get-friends",
   passport.authenticate("jwt", { session: false }),
   async (req, res) => {
-    console.log(`Bearer ${JSON.stringify(req.body)}`);
+    console.log(`Bearer ${JSON.stringify(req.query)}`);
     axios
       .get("https://secure.splitwise.com/api/v3.0/get_friends", {
         headers: {
-          Authorization: `Bearer ${req.body.apiKey}`,
+          Authorization: `Bearer ${req.query.apiKey}`,
           "Access-Control-Allow-Origin": "*",
         },
       })
