@@ -120,7 +120,7 @@ app.get(
   "/get-splitwise-user",
   passport.authenticate("jwt", { session: false }),
   async (req, res) => {
-    console.log(`Bearer ${req} ${JSON.stringify(req.body)} ${JSON.stringify(req.query)} ${JSON.stringify(req.params)} ${JSON.stringify(req.res)}`);
+    console.log(`Bearer ${req} ${JSON.stringify(req.body)} ${JSON.stringify(req.query)} ${JSON.stringify(req.params)}`);
     axios
       .get("https://secure.splitwise.com/api/v3.0/get_current_user", {
         headers: {
