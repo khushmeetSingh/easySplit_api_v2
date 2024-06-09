@@ -120,7 +120,11 @@ app.get(
   "/get-splitwise-user",
   passport.authenticate("jwt", { session: false }),
   async (req, res) => {
-    console.log(`Bearer ${req} ${JSON.stringify(req.body)} ${JSON.stringify(req.query)} ${JSON.stringify(req.params)}`);
+    console.log(
+      `Bearer ${req} ${JSON.stringify(req.body)} ${JSON.stringify(
+        req.query
+      )} ${JSON.stringify(req.params)}`
+    );
     axios
       .get("https://secure.splitwise.com/api/v3.0/get_current_user", {
         headers: {
@@ -138,7 +142,6 @@ app.get(
   "/get-friends",
   passport.authenticate("jwt", { session: false }),
   async (req, res) => {
-    console.log(`Bearer ${JSON.stringify(req.query)}`);
     axios
       .get("https://secure.splitwise.com/api/v3.0/get_friends", {
         headers: {
@@ -149,6 +152,35 @@ app.get(
       .then((resp) => res.json(resp.data))
       .catch((err) => res.status(452).json({ error: err }));
     // return response;
+  }
+);
+
+app.post(
+  "/add-expense-friends",
+  passport.authenticate("jwt", { session: false }),
+  async (req, res) => {
+    let postData = {
+      description: req.body.description,
+      cost: req.body.cost,
+      currency_code: req.body.currency_code,
+      users__0__owed_share: req.body.users__0__owed_share,
+      users__0__paid_share: req.body.users__0__paid_share,
+      users__0__user_id: req.body.users__0__user_id,
+    };
+    
+    req.body.users.map((user,idx)=>{
+      postData[`users__${idx+1}__email`] = user.email;
+      postData[`users__${idx+1}__owed_share`] = user.owed_share;
+    });
+    
+    console.log(`\n\n\n\n\nAPI key is ${JSON.stringify(obj)} \n\n\n\n\n\n\n`);
+    axios
+      .post("https://secure.splitwise.com/api/v3.0/create_expense", postData,{headers:{
+        Authorization: `Bearer ${req.body.apiKey}`,
+        "Access-Control-Allow-Origin": "*",
+      }})
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
   }
 );
 
