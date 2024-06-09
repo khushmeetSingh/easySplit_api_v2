@@ -172,8 +172,6 @@ app.post(
       postData[`users__${idx+1}__email`] = user.email;
       postData[`users__${idx+1}__owed_share`] = user.owed_share;
     });
-    
-    console.log(`\n\n\n\n\nAPI key is ${JSON.stringify(obj)} \n\n\n\n\n\n\n`);
     axios
       .post("https://secure.splitwise.com/api/v3.0/create_expense", postData,{headers:{
         Authorization: `Bearer ${req.body.apiKey}`,
