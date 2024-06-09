@@ -13,7 +13,7 @@ const HTTP_PORT = process.env.PORT || 8080;
 
 app.use(express.json());
 app.use(cors());
-const jwtSecret = process.env.JWT_SECRET;
+const jwtSecret = 'LJsGTQ76jK4qsqa4gEjy3JFgu';
 
 // JSON Web Token Setup
 let ExtractJwt = passportJWT.ExtractJwt;
