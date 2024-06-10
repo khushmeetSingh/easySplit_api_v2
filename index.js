@@ -177,8 +177,8 @@ app.post(
         Authorization: `Bearer ${req.body.apiKey}`,
         "Access-Control-Allow-Origin": "*",
       }})
-      .then((res) => console.log(res))
-      .catch((err) => console.log(err));
+      .then((result) => res.sendStatus(200).send(result))
+      .catch((err) => res.sendStatus(403).send(err));
   }
 );
 
