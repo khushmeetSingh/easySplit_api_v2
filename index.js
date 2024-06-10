@@ -164,7 +164,6 @@ app.post(
       cost: req.body.cost,
       currency_code: req.body.currency_code,
       users__0__owed_share: req.body.users__0__owed_share,
-      users__0__paid_share: req.body.users__0__paid_share,
       users__0__user_id: req.body.users__0__user_id,
     };
     
